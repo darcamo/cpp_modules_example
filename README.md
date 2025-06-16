@@ -7,6 +7,9 @@ A minimal project that works with C++ modules, including importing
 This was tested in Linux with clang-18. You need to install `libc++`.
 You also need a recent cmake version, such as cmake 3.30.
 
+**Update**: Tested on 2025-06-16 seg with clang-20 and cmake 4.0. The
+value of `CMAKE_EXPERIMENTAL_CXX_IMPORT_STD` was updated to the one
+used in CMake 4.0.
 
 
 Note: Creating and using modules is available since C++20, but `import
