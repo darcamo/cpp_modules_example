@@ -1,46 +1,122 @@
 {
-    "version": 6,
-    "cmakeMinimumRequired": {
-        "major": 3,
-        "minor": 30,
-        "patch": 0
+  "version": 10,
+  "cmakeMinimumRequired": {
+    "major": 4,
+    "minor": 0,
+    "patch": 0
+  },
+  "$schema": "https://cmake.org/cmake/help/latest/_downloads/3e2d73bff478d88a7de0de736ba5e361/schema.json",
+  "configurePresets": [
+    {
+      "name": "common",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true
+      }
     },
-    "configurePresets": [
-        {
-            "name": "default",
-            "displayName": "Default configure preset",
-            "description": "Default build using Ninja generator",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/",
-            "cacheVariables": {
-                "CMAKE_EXPORT_COMPILE_COMMANDS":true,
-                "CMAKE_BUILD_TYPE":"Debug",
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++"
-            },
-            "environment": {}
-        },
-        {
-            "name": "release",
-            "displayName": "Default release configure preset",
-            "description": "Default build using Ninja generator for release builds",
-            "inherits": "default",
-            "binaryDir": "${sourceDir}/build-release/",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE":"Release"
-            }
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "default",
-            "displayName": "Default build preset",
-            "configurePreset": "default"
-        },
-        {
-            "name": "release",
-            "displayName": "Default release build preset",
-            "configurePreset": "release"
-        }
-    ]
+    {
+      "name": "debug",
+      "hidden": true,
+      "inherits": [
+        "common"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "hidden": true,
+      "inherits": [
+        "common"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "clang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "gcc",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Default configure preset",
+      "description": "Default build using Ninja generator",
+      "inherits": [
+        "clang",
+        "debug"
+      ],
+      "environment": {}
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Default release configure preset",
+      "description": "Default build using Ninja generator for release builds",
+      "inherits": [
+        "clang",
+        "release"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "gcc-debug",
+      "displayName": "Default configure preset",
+      "description": "Default build using Ninja generator",
+      "inherits": [
+        "gcc",
+        "debug"
+      ],
+      "environment": {}
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "Default release configure preset",
+      "description": "Default build using Ninja generator for release builds",
+      "inherits": [
+        "gcc",
+        "release"
+      ],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "clang-debug",
+      "displayName": "Default build preset",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Default release build preset",
+      "configurePreset": "clang-release"
+    },
+    {
+      "name": "gcc-debug",
+      "displayName": "Default build preset",
+      "configurePreset": "gcc-debug"
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "Default release build preset",
+      "configurePreset": "gcc-release"
+    }
+  ]
 }
